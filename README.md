@@ -134,27 +134,27 @@
 
 <hr>
 
-<span style="color:#89A8B2; font-weight:bold;">Prompt 1</span>
+<span style="color:#89A8B2; font-weight:bold;">Prompt 11</span>
 
 > next requirement:  License Plate Validation ○ License plates must follow the format standard: two letters + four digits (e.g., “AB-1234”). ○ The system must reject empty or invalid license plate entries
 
 <hr>
 
-<span style="color:#89A8B2; font-weight:bold;">Prompt 1</span>
+<span style="color:#89A8B2; font-weight:bold;">Prompt 12</span>
 
 > For the test cases, please include tests for ParkingLot and ParkingManager using both valid and invalid plate numbers.
 
 <hr>
 
-<span style="color:#89A8B2; font-weight:bold;">Prompt 1</span>
+<span style="color:#89A8B2; font-weight:bold;">Prompt 13</span>
 
-> 
+> I want to add a controller layer to handle parking and fetching, as well as a service layer. The goal is to build a backend that allows the front end to pass a license plate and a parking strategy (SUPER, STANDARD, or SMART) to park and fetch cars. Additionally, it should display a matrix of license plate numbers separated by parking lots, with the parking lot name displayed below each matrix. Can you guide me on the steps to update the backend code?
 
 <hr>
 
-<span style="color:#89A8B2; font-weight:bold;">Prompt 1</span>
+<span style="color:#89A8B2; font-weight:bold;">Prompt 14</span>
 
-> 
+> create test cases for ParkingController and ParkingService
 
 <hr>
 
