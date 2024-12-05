@@ -108,4 +108,45 @@ class ParkingLotTest {
         assertTrue(expectedTickets.containsAll(tickets));
     }
 
+    @Test
+    void should_display_status_of_empty_parking_lot() {
+        // Given
+        ParkingLot parkingLot = new ParkingLot(1, "Plaza Park", 9);
+
+        // When
+        String status = parkingLot.getParkingLotStatus();
+
+        // Then
+        assertEquals("Plaza Park: []", status);
+    }
+
+    @Test
+    void should_display_status_of_partially_filled_parking_lot() {
+        // Given
+        ParkingLot parkingLot = new ParkingLot(1, "Plaza Park", 9);
+        parkingLot.park(new Car("ABC-1234"));
+        parkingLot.park(new Car("DEF-5678"));
+
+        // When
+        String status = parkingLot.getParkingLotStatus();
+
+        // Then
+        assertEquals("Plaza Park: [ABC-1234, DEF-5678]", status);
+    }
+
+    @Test
+    void should_display_status_of_fully_filled_parking_lot() {
+        // Given
+        ParkingLot parkingLot = new ParkingLot(1, "Plaza Park", 3);
+        parkingLot.park(new Car("GHI-9012"));
+        parkingLot.park(new Car("ABC-1234"));
+        parkingLot.park(new Car("DEF-5678"));
+
+        // When
+        String status = parkingLot.getParkingLotStatus();
+
+        // Then
+        assertEquals("Plaza Park: [GHI-9012, DEF-5678, ABC-1234]", status);
+    }
+
 }

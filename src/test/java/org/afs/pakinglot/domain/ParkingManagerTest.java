@@ -93,4 +93,19 @@ class ParkingManagerTest {
         // Then
         assertTrue(cityMallGarage.contains(ticket));
     }
+
+    @Test
+    void should_display_aggregated_status_of_all_parking_lots() {
+        // Given
+        plazaPark.park(new Car("ABC-1234"));
+        cityMallGarage.park(new Car("DEF-5678"));
+        officeTowerParking.park(new Car("GHI-9012"));
+
+        // When
+        String status = parkingManager.getParkingLotStatus();
+
+        // Then
+        String expectedStatus = "Plaza Park: [ABC-1234]\nCity Mall Garage: [DEF-5678]\nOffice Tower Parking: [GHI-9012]";
+        assertEquals(expectedStatus, status);
+    }
 }

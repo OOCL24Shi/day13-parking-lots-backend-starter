@@ -3,6 +3,7 @@ package org.afs.pakinglot.domain;
 import org.afs.pakinglot.domain.strategies.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ParkingManager {
     private List<ParkingLot> parkingLots;
@@ -29,5 +30,11 @@ public class ParkingManager {
             default:
                 throw new IllegalArgumentException("Invalid parking strategy: " + strategy);
         }
+    }
+
+    public String getParkingLotStatus() {
+        return parkingLots.stream()
+                .map(ParkingLot::getParkingLotStatus)
+                .collect(Collectors.joining("\n"));
     }
 }

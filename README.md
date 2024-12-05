@@ -76,27 +76,41 @@
 
 <hr>
 
-<span style="color:#89A8B2; font-weight:bold;">Prompt 1</span>
+<span style="color:#89A8B2; font-weight:bold;">Prompt 6</span>
 
-> 
+> I’ll begin adding requirements shortly. Please follow the standard software development procedures, which include:
+>
+> 1.Tasking
+> 2.Test-Driven Development (TDD)
+> 3.Implementation
+
+<hr>
+
+<span style="color:#89A8B2; font-weight:bold;">Prompt 6</span>
+
+> Here comes the 1st additional requirement:
+>
+> Parking Lot Status Display
+> ○ The system should clearly display the current status of all three parking lots, showing the license plate of the car parked 
+> in each parking position to provide a real-time view of parking lot usage
+>
+> Please follow the standard software development procedures, which include:
+>
+> 1.Tasking
+> 2.Test-Driven Development (TDD)
+> 3.Implementation
+
+<hr>
+
+<span style="color:#89A8B2; font-weight:bold;">Prompt 7</span>
+
+> is it better to put getParkingLotStatus in the ParkingLot class?
 
 <hr>
 
 <span style="color:#89A8B2; font-weight:bold;">Prompt 1</span>
 
-> 
-
-<hr>
-
-<span style="color:#89A8B2; font-weight:bold;">Prompt 1</span>
-
-> 
-
-<hr>
-
-<span style="color:#89A8B2; font-weight:bold;">Prompt 1</span>
-
-> 
+> then redo the tasking, tdd and implementation
 
 <hr>
 
