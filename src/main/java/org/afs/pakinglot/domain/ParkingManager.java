@@ -1,8 +1,9 @@
 package org.afs.pakinglot.domain;
 
-import org.afs.pakinglot.domain.exception.NoAvailablePositionException;
+import org.afs.pakinglot.domain.exception.InvalidLicensePlateException;
 import org.afs.pakinglot.domain.exception.UnrecognizedTicketException;
 import org.afs.pakinglot.domain.strategies.*;
+import org.afs.pakinglot.domain.validator.LicensePlateValidator;
 
 import java.util.List;
 import java.util.stream.Collectors;

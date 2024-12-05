@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.afs.pakinglot.domain.exception.InvalidLicensePlateException;
 import org.afs.pakinglot.domain.exception.NoAvailablePositionException;
 import org.afs.pakinglot.domain.exception.UnrecognizedTicketException;
+import org.afs.pakinglot.domain.validator.LicensePlateValidator;
 
 public class ParkingLot {
     private int id;

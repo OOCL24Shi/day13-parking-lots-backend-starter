@@ -1,5 +1,5 @@
 
-package org.afs.pakinglot.domain;
+package org.afs.pakinglot.domain.validator;
 
 import java.util.regex.Pattern;
 

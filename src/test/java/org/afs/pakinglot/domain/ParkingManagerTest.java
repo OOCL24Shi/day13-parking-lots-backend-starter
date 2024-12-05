@@ -1,5 +1,6 @@
 package org.afs.pakinglot.domain;
 
+import org.afs.pakinglot.domain.exception.InvalidLicensePlateException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

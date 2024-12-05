@@ -1,4 +1,4 @@
-package org.afs.pakinglot.domain;
+package org.afs.pakinglot.domain.exception;
 
 public class InvalidLicensePlateException extends Throwable {
     public InvalidLicensePlateException() {
