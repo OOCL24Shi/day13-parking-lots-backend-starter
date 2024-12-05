@@ -64,4 +64,33 @@ class ParkingManagerTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> parkingManager.park(strategy, plateNumber));
         assertEquals("Invalid parking strategy: INVALID", exception.getMessage());
     }
+
+    @Test
+    void should_park_car_in_first_lot_when_standard_strategy_given_first_lot_not_full() {
+        // Given
+        String strategy = "STANDARD";
+        String plateNumber = "ABC-1234";
+
+        // When
+        Ticket ticket = parkingManager.park(strategy, plateNumber);
+
+        // Then
+        assertTrue(plazaPark.contains(ticket));
+    }
+
+    @Test
+    void should_park_car_in_second_lot_when_standard_strategy_given_first_lot_full() {
+        // Given
+        String strategy = "STANDARD";
+        String plateNumber = "PQR-1234";
+        for (int i = 0; i < plazaPark.getCapacity(); i++) {
+            plazaPark.park(new Car("CAR-" + i));
+        }
+
+        // When
+        Ticket ticket = parkingManager.park(strategy, plateNumber);
+
+        // Then
+        assertTrue(cityMallGarage.contains(ticket));
+    }
 }
