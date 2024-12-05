@@ -29,17 +29,17 @@ class ParkingManagerTest {
 
     @ParameterizedTest
     @CsvSource({
-            "SMART, STU-5678",
-            "SUPER, VWX-9012",
-            "STANDARD, ABC-1234"
+            "SMART, ST-5678",
+            "SUPER, VW-9012",
+            "STANDARD, AB-1234"
     })
-    void should_park_car_in_lot_based_on_strategy_given_parking_lots(String strategy, String plateNumber) {
+    void should_park_car_in_lot_based_on_strategy_given_parking_lots(String strategy, String plateNumber) throws InvalidLicensePlateException {
         // Given
-        cityMallGarage.park(new Car("CAR-1"));
-        plazaPark.park(new Car("CAR-2"));
-        officeTowerParking.park(new Car("CAR-3"));
-        cityMallGarage.park(new Car("CAR-4"));
-        plazaPark.park(new Car("CAR-5"));
+        cityMallGarage.park(new Car("CA-1999"));
+        plazaPark.park(new Car("CA-2888"));
+        officeTowerParking.park(new Car("CA-3888"));
+        cityMallGarage.park(new Car("CA-4888"));
+        plazaPark.park(new Car("CA-5888"));
 
         // When
         Ticket ticket = parkingManager.park(strategy, plateNumber);
@@ -58,7 +58,7 @@ class ParkingManagerTest {
     void should_throw_exception_when_invalid_strategy_given_parking_lots() {
         // Given
         String strategy = "INVALID";
-        String plateNumber = "JKL-3456";
+        String plateNumber = "JK-3456";
 
         // When & Then
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> parkingManager.park(strategy, plateNumber));
@@ -66,10 +66,10 @@ class ParkingManagerTest {
     }
 
     @Test
-    void should_park_car_in_first_lot_when_standard_strategy_given_first_lot_not_full() {
+    void should_park_car_in_first_lot_when_standard_strategy_given_first_lot_not_full() throws InvalidLicensePlateException {
         // Given
         String strategy = "STANDARD";
-        String plateNumber = "ABC-1234";
+        String plateNumber = "AB-1234";
 
         // When
         Ticket ticket = parkingManager.park(strategy, plateNumber);
@@ -79,10 +79,10 @@ class ParkingManagerTest {
     }
 
     @Test
-    void should_park_car_in_second_lot_when_standard_strategy_given_first_lot_full() {
+    void should_park_car_in_second_lot_when_standard_strategy_given_first_lot_full() throws InvalidLicensePlateException {
         // Given
         String strategy = "STANDARD";
-        String plateNumber = "PQR-1234";
+        String plateNumber = "PQ-1234";
         for (int i = 0; i < plazaPark.getCapacity(); i++) {
             plazaPark.park(new Car("CAR-" + i));
         }
@@ -97,74 +97,74 @@ class ParkingManagerTest {
     @Test
     void should_display_aggregated_status_of_all_parking_lots_when_park_to_3_lots_given_three_lots() {
         // Given
-        plazaPark.park(new Car("ABC-1234"));
-        cityMallGarage.park(new Car("DEF-5678"));
-        officeTowerParking.park(new Car("GHI-9012"));
+        plazaPark.park(new Car("AB-1234"));
+        cityMallGarage.park(new Car("DE-5678"));
+        officeTowerParking.park(new Car("GH-9012"));
 
         // When
         String status = parkingManager.getParkingLotStatus();
 
         // Then
-        String expectedStatus = "Plaza Park: [ABC-1234]\nCity Mall Garage: [DEF-5678]\nOffice Tower Parking: [GHI-9012]";
+        String expectedStatus = "Plaza Park: [AB-1234]\nCity Mall Garage: [DE-5678]\nOffice Tower Parking: [GH-9012]";
         assertEquals(expectedStatus, status);
     }
 
     //requirement2
     @Test
-    void should_park_car_in_first_available_lot_and_update_status_when_park_given_plate_number() {
+    void should_park_car_in_first_available_lot_and_update_status_when_park_given_plate_number() throws InvalidLicensePlateException {
         // Given
-        String plateNumber = "ABC-1234";
+        String plateNumber = "AB-1234";
 
         // When
         parkingManager.park("STANDARD", plateNumber);
         String status = parkingManager.getParkingLotStatus();
 
         // Then
-        assertTrue(status.contains("ABC-1234"));
-        assertTrue(plazaPark.getParkingLotStatus().contains("ABC-1234"));
+        assertTrue(status.contains("AB-1234"));
+        assertTrue(plazaPark.getParkingLotStatus().contains("AB-1234"));
     }
 
     @Test
-    void should_park_car_in_second_lot_when_first_is_full_and_update_status_when_park_given_plate_number() {
+    void should_park_car_in_second_lot_when_first_is_full_and_update_status_when_park_given_plate_number() throws InvalidLicensePlateException {
         // Given
         for (int i = 0; i < plazaPark.getCapacity(); i++) {
-            parkingManager.park("STANDARD", "CAR-" + i);
+            parkingManager.park("STANDARD", "CA-" + ((100 + (int)(Math.random() * 900)) * 10+i));
         }
-        String plateNumber = "XYZ-5678";
+        String plateNumber = "XY-5678";
 
         // When
         parkingManager.park("STANDARD", plateNumber);
         String status = parkingManager.getParkingLotStatus();
 
         // Then
-        assertTrue(status.contains("XYZ-5678"));
-        assertTrue(cityMallGarage.getParkingLotStatus().contains("XYZ-5678"));
+        assertTrue(status.contains("XY-5678"));
+        assertTrue(cityMallGarage.getParkingLotStatus().contains("XY-5678"));
     }
 
     @Test
-    void should_park_car_in_third_lot_when_first_two_are_full_and_update_status_given_plate_number() {
+    void should_park_car_in_third_lot_when_first_two_are_full_and_update_status_given_plate_number() throws InvalidLicensePlateException {
         // Given
         for (int i = 0; i < plazaPark.getCapacity(); i++) {
-            parkingManager.park("STANDARD", "CAR-" + i);
+            parkingManager.park("STANDARD", "CA-" + ((100 + (int)(Math.random() * 900)) * 10+i));
         }
         for (int i = 0; i < cityMallGarage.getCapacity(); i++) {
-            parkingManager.park("STANDARD", "CAR-" + (i + plazaPark.getCapacity()));
+            parkingManager.park("STANDARD", "CA-" + ((100 + (int)(Math.random() * 900)) * 10+i));
         }
-        String plateNumber = "LMN-9012";
+        String plateNumber = "LM-9012";
 
         // When
         parkingManager.park("STANDARD", plateNumber);
         String status = parkingManager.getParkingLotStatus();
 
         // Then
-        assertTrue(status.contains("LMN-9012"));
-        assertTrue(officeTowerParking.getParkingLotStatus().contains("LMN-9012"));
+        assertTrue(status.contains("LM-9012"));
+        assertTrue(officeTowerParking.getParkingLotStatus().contains("LM-9012"));
     }
 
     @Test
-    void should_fetch_car_from_first_lot_and_update_status_when_fetch_given_plate_number() {
+    void should_fetch_car_from_first_lot_and_update_status_when_fetch_given_plate_number() throws InvalidLicensePlateException {
         // Given
-        String plateNumber = "ABC-1234";
+        String plateNumber = "AB-1234";
         parkingManager.park("STANDARD", plateNumber);
 
         // When
@@ -173,17 +173,17 @@ class ParkingManagerTest {
 
         // Then
         assertEquals(plateNumber, fetchedCar.plateNumber());
-        assertFalse(status.contains("ABC-1234"));
-        assertFalse(plazaPark.getParkingLotStatus().contains("ABC-1234"));
+        assertFalse(status.contains("AB-1234"));
+        assertFalse(plazaPark.getParkingLotStatus().contains("AB-1234"));
     }
 
     @Test
-    void should_fetch_car_from_second_lot_and_update_status_when_fetch_given_plate_number() {
+    void should_fetch_car_from_second_lot_and_update_status_when_fetch_given_plate_number() throws InvalidLicensePlateException {
         // Given
         for (int i = 0; i < plazaPark.getCapacity(); i++) {
-            parkingManager.park("STANDARD", "CAR-" + i);
+            parkingManager.park("STANDARD", "CA-" + ((100 + (int)(Math.random() * 900)) * 10+i));
         }
-        String plateNumber = "XYZ-5678";
+        String plateNumber = "XY-5678";
         parkingManager.park("STANDARD", plateNumber);
 
         // When
@@ -192,20 +192,20 @@ class ParkingManagerTest {
 
         // Then
         assertEquals(plateNumber, fetchedCar.plateNumber());
-        assertFalse(status.contains("XYZ-5678"));
-        assertFalse(cityMallGarage.getParkingLotStatus().contains("XYZ-5678"));
+        assertFalse(status.contains("XY-5678"));
+        assertFalse(cityMallGarage.getParkingLotStatus().contains("XY-5678"));
     }
 
     @Test
-    void should_fetch_car_from_third_lot_and_update_status_when_fetch_given_plate_number() {
+    void should_fetch_car_from_third_lot_and_update_status_when_fetch_given_plate_number() throws InvalidLicensePlateException {
         // Given
         for (int i = 0; i < plazaPark.getCapacity(); i++) {
-            parkingManager.park("STANDARD", "CAR-" + i);
+            parkingManager.park("STANDARD", "CA-" + ((100 + (int)(Math.random() * 900)) * 10+i));
         }
         for (int i = 0; i < cityMallGarage.getCapacity(); i++) {
-            parkingManager.park("STANDARD", "CAR-" + (i + plazaPark.getCapacity()));
+            parkingManager.park("STANDARD", "CA-" + ((100 + (int)(Math.random() * 900)) * 10+i));
         }
-        String plateNumber = "LMN-9012";
+        String plateNumber = "LM-9012";
         parkingManager.park("STANDARD", plateNumber);
 
         // When
@@ -214,9 +214,57 @@ class ParkingManagerTest {
 
         // Then
         assertEquals(plateNumber, fetchedCar.plateNumber());
-        assertFalse(status.contains("LMN-9012"));
-        assertFalse(officeTowerParking.getParkingLotStatus().contains("LMN-9012"));
+        assertFalse(status.contains("LM-9012"));
+        assertFalse(officeTowerParking.getParkingLotStatus().contains("LM-9012"));
+    }
+    //requirement4
+
+    @Test
+    void should_park_car_with_valid_plate_number_and_update_status_when_park_given_valid_plate() throws InvalidLicensePlateException {
+        // Given
+        String validPlateNumber = "AB-1234";
+
+        // When
+        parkingManager.park("STANDARD", validPlateNumber);
+        String status = parkingManager.getParkingLotStatus();
+
+        // Then
+        assertTrue(status.contains("AB-1234"));
+        assertTrue(plazaPark.getParkingLotStatus().contains("AB-1234"));
     }
 
+    @Test
+    void should_throw_exception_for_invalid_plate_number_when_parking_given_invalid_plate() {
+        // Given
+        String invalidPlateNumber = "INV-1234";
+
+        // When & Then
+        assertThrows(InvalidLicensePlateException.class, () -> parkingManager.park("STANDARD", invalidPlateNumber));
+    }
+
+    @Test
+    void should_fetch_car_with_valid_plate_number_and_update_status_when_fetch_given_valid_plate() throws InvalidLicensePlateException {
+        // Given
+        String validPlateNumber = "AB-1234";
+        parkingManager.park("STANDARD", validPlateNumber);
+
+        // When
+        Car fetchedCar = parkingManager.fetch(validPlateNumber);
+        String status = parkingManager.getParkingLotStatus();
+
+        // Then
+        assertEquals(validPlateNumber, fetchedCar.plateNumber());
+        assertFalse(status.contains("AB-1234"));
+        assertFalse(plazaPark.getParkingLotStatus().contains("AB-1234"));
+    }
+
+    @Test
+    void should_throw_exception_for_invalid_plate_number_when_fetching_given_invalid_plate() {
+        // Given
+        String invalidPlateNumber = "INV-222222";
+
+        // When & Then
+        assertThrows(InvalidLicensePlateException.class, () -> parkingManager.fetch(invalidPlateNumber));
+    }
 
 }

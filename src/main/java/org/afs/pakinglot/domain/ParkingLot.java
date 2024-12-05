@@ -49,7 +49,10 @@ public class ParkingLot {
         return ticket;
     }
 
-    public void park(String plateNumber) {
+    public void park(String plateNumber) throws InvalidLicensePlateException {
+        if (!LicensePlateValidator.isValid(plateNumber)) {
+            throw new InvalidLicensePlateException();
+        }
         if (isFull()) {
             throw new NoAvailablePositionException();
         }
@@ -64,6 +67,7 @@ public class ParkingLot {
     }
 
     public Car fetch(Ticket ticket) {
+
         if (!tickets.containsKey(ticket)) {
             throw new UnrecognizedTicketException();
         }
@@ -71,7 +75,10 @@ public class ParkingLot {
         return tickets.remove(ticket);
     }
 
-    public Car fetch(String plateNumber) {
+    public Car fetch(String plateNumber) throws InvalidLicensePlateException {
+        if (!LicensePlateValidator.isValid(plateNumber)) {
+            throw new InvalidLicensePlateException();
+        }
         Ticket ticket = tickets.keySet().stream()
                 .filter(t -> t.plateNumber().equals(plateNumber))
                 .findFirst()

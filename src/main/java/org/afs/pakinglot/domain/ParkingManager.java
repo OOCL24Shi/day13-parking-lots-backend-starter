@@ -20,7 +20,10 @@ public class ParkingManager {
         this.superSmartParkingBoy = new ParkingBoy(parkingLots, new AvailableRateStrategy());
     }
 
-    public Ticket park(String strategy, String plateNumber) {
+    public Ticket park(String strategy, String plateNumber) throws InvalidLicensePlateException {
+        if (!LicensePlateValidator.isValid(plateNumber)) {
+            throw new InvalidLicensePlateException();
+        }
         Car car = new Car(plateNumber);
         switch (strategy) {
             case "STANDARD":
@@ -34,7 +37,10 @@ public class ParkingManager {
         }
     }
 
-    public Car fetch(String plateNumber) {
+    public Car fetch(String plateNumber) throws InvalidLicensePlateException {
+        if (!LicensePlateValidator.isValid(plateNumber)) {
+            throw new InvalidLicensePlateException();
+        }
         for (ParkingLot lot : parkingLots) {
             try {
                 return lot.fetch(plateNumber);

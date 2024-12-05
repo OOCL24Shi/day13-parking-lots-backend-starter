@@ -124,51 +124,51 @@ class ParkingLotTest {
     void should_display_status_of_partially_filled_parking_lot_when_park_given_a_partially_full_park() {
         // Given
         ParkingLot parkingLot = new ParkingLot(1, "Plaza Park", 9);
-        parkingLot.park(new Car("ABC-1234"));
-        parkingLot.park(new Car("DEF-5678"));
+        parkingLot.park(new Car("AB-1234"));
+        parkingLot.park(new Car("DE-5678"));
 
         // When
         String status = parkingLot.getParkingLotStatus();
 
         // Then
-        assertEquals("Plaza Park: [ABC-1234, DEF-5678]", status);
+        assertEquals("Plaza Park: [AB-1234, DE-5678]", status);
     }
 
     @Test
     void should_display_status_of_fully_filled_parking_lot_when_park_given_one_full_parking_lot() {
         // Given
         ParkingLot parkingLot = new ParkingLot(1, "Plaza Park", 3);
-        parkingLot.park(new Car("GHI-9012"));
-        parkingLot.park(new Car("ABC-1234"));
-        parkingLot.park(new Car("DEF-5678"));
+        parkingLot.park(new Car("GH-9012"));
+        parkingLot.park(new Car("AB-1234"));
+        parkingLot.park(new Car("DE-5678"));
 
         // When
         String status = parkingLot.getParkingLotStatus();
 
         // Then
-        assertEquals("Plaza Park: [GHI-9012, DEF-5678, ABC-1234]", status);
+        assertEquals("Plaza Park: [AB-1234, GH-9012, DE-5678]", status);
     }
     //requriment 2
 
     @Test
-    void should_park_car_when_park_given_plate_number() {
+    void should_park_car_when_park_given_plate_number() throws InvalidLicensePlateException {
         // Given
         ParkingLot parkingLot = new ParkingLot(1, "Plaza Park", 9);
-        String plateNumber = "ABC-1234";
+        String plateNumber = "AB-1234";
 
         // When
         parkingLot.park(plateNumber);
         String status = parkingLot.getParkingLotStatus();
 
         // Then
-        assertEquals("Plaza Park: [ABC-1234]", status);
+        assertEquals("Plaza Park: [AB-1234]", status);
     }
 
     @Test
-    void should_fetch_correct_car_when_fetch_given_plate_number() {
+    void should_fetch_correct_car_when_fetch_given_plate_number() throws InvalidLicensePlateException {
         // Given
         ParkingLot parkingLot = new ParkingLot(1, "Plaza Park", 9);
-        String plateNumber = "ABC-1234";
+        String plateNumber = "AB-1234";
         parkingLot.park(plateNumber);
 
         // When
@@ -178,5 +178,56 @@ class ParkingLotTest {
         // Then
         assertEquals(plateNumber, fetchedCar.plateNumber());
         assertEquals("Plaza Park: []", status);
+    }
+
+    //requirement4
+    @Test
+    void should_park_car_with_valid_plate_number_and_update_status_park_given_valid_license_plate() throws InvalidLicensePlateException {
+        // Given
+        ParkingLot parkingLot = new ParkingLot(1, "Plaza Park", 9);
+        String validPlateNumber = "AB-1234";
+
+        // When
+        parkingLot.park(validPlateNumber);
+        String status = parkingLot.getParkingLotStatus();
+
+        // Then
+        assertEquals("Plaza Park: [AB-1234]", status);
+    }
+
+    @Test
+    void should_throw_exception_for_invalid_plate_number_when_parking_given_lisence_plate_with_invalid_format() {
+        // Given
+        ParkingLot parkingLot = new ParkingLot(1, "Plaza Park", 9);
+        String invalidPlateNumber = "INVALID";
+
+        // When & Then
+        assertThrows(InvalidLicensePlateException.class, () -> parkingLot.park(invalidPlateNumber));
+    }
+
+    @Test
+    void should_fetch_car_and_update_status_when_fetch_given_plate_number_with_valid_format() throws InvalidLicensePlateException {
+        // Given
+        ParkingLot parkingLot = new ParkingLot(1, "Plaza Park", 9);
+        String validPlateNumber = "AB-1234";
+        parkingLot.park(validPlateNumber);
+
+        // When
+        Car fetchedCar = parkingLot.fetch(validPlateNumber);
+        String status = parkingLot.getParkingLotStatus();
+
+        // Then
+        assertEquals(validPlateNumber, fetchedCar.plateNumber());
+        assertEquals("Plaza Park: []", status);
+    }
+
+    @Test
+    void should_throw_exception_for_invalid_plate_number_when_fetching_given_plate_with_invalid_format() {
+        // Given
+        ParkingLot parkingLot = new ParkingLot(1, "Plaza Park", 9);
+        String invalidPlateNumber = "INVALID";
+
+        // When & Then
+        assertThrows(InvalidLicensePlateException.class, () -> parkingLot.fetch(invalidPlateNumber));
     }
 }

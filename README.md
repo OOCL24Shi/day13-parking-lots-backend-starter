@@ -136,13 +136,13 @@
 
 <span style="color:#89A8B2; font-weight:bold;">Prompt 1</span>
 
-> 
+> next requirement:  License Plate Validation ○ License plates must follow the format standard: two letters + four digits (e.g., “AB-1234”). ○ The system must reject empty or invalid license plate entries
 
 <hr>
 
 <span style="color:#89A8B2; font-weight:bold;">Prompt 1</span>
 
-> 
+> For the test cases, please include tests for ParkingLot and ParkingManager using both valid and invalid plate numbers.
 
 <hr>
 
