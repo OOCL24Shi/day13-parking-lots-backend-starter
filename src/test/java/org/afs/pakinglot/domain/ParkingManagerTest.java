@@ -95,7 +95,7 @@ class ParkingManagerTest {
     }
 
     @Test
-    void should_display_aggregated_status_of_all_parking_lots() {
+    void should_display_aggregated_status_of_all_parking_lots_when_park_to_3_lots_given_three_lots() {
         // Given
         plazaPark.park(new Car("ABC-1234"));
         cityMallGarage.park(new Car("DEF-5678"));

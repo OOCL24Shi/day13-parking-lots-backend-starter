@@ -121,7 +121,7 @@ class ParkingLotTest {
     }
 
     @Test
-    void should_display_status_of_partially_filled_parking_lot() {
+    void should_display_status_of_partially_filled_parking_lot_when_park_given_a_partially_full_park() {
         // Given
         ParkingLot parkingLot = new ParkingLot(1, "Plaza Park", 9);
         parkingLot.park(new Car("ABC-1234"));
@@ -135,7 +135,7 @@ class ParkingLotTest {
     }
 
     @Test
-    void should_display_status_of_fully_filled_parking_lot() {
+    void should_display_status_of_fully_filled_parking_lot_when_park_given_one_full_parking_lot() {
         // Given
         ParkingLot parkingLot = new ParkingLot(1, "Plaza Park", 3);
         parkingLot.park(new Car("GHI-9012"));
