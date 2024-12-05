@@ -1,5 +1,7 @@
 package org.afs.pakinglot.domain;
 
+import org.afs.pakinglot.domain.exception.NoAvailablePositionException;
+import org.afs.pakinglot.domain.exception.UnrecognizedTicketException;
 import org.afs.pakinglot.domain.strategies.*;
 
 import java.util.List;
@@ -30,6 +32,16 @@ public class ParkingManager {
             default:
                 throw new IllegalArgumentException("Invalid parking strategy: " + strategy);
         }
+    }
+
+    public Car fetch(String plateNumber) {
+        for (ParkingLot lot : parkingLots) {
+            try {
+                return lot.fetch(plateNumber);
+            } catch (UnrecognizedTicketException ignored) {
+            }
+        }
+        throw new UnrecognizedTicketException();
     }
 
     public String getParkingLotStatus() {

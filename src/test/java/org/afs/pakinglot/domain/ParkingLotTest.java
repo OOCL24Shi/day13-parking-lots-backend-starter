@@ -148,5 +148,35 @@ class ParkingLotTest {
         // Then
         assertEquals("Plaza Park: [GHI-9012, DEF-5678, ABC-1234]", status);
     }
+    //requriment 2
 
+    @Test
+    void should_park_car_when_park_given_plate_number() {
+        // Given
+        ParkingLot parkingLot = new ParkingLot(1, "Plaza Park", 9);
+        String plateNumber = "ABC-1234";
+
+        // When
+        parkingLot.park(plateNumber);
+        String status = parkingLot.getParkingLotStatus();
+
+        // Then
+        assertEquals("Plaza Park: [ABC-1234]", status);
+    }
+
+    @Test
+    void should_fetch_correct_car_when_fetch_given_plate_number() {
+        // Given
+        ParkingLot parkingLot = new ParkingLot(1, "Plaza Park", 9);
+        String plateNumber = "ABC-1234";
+        parkingLot.park(plateNumber);
+
+        // When
+        Car fetchedCar = parkingLot.fetch(plateNumber);
+        String status = parkingLot.getParkingLotStatus();
+
+        // Then
+        assertEquals(plateNumber, fetchedCar.plateNumber());
+        assertEquals("Plaza Park: []", status);
+    }
 }

@@ -49,6 +49,16 @@ public class ParkingLot {
         return ticket;
     }
 
+    public void park(String plateNumber) {
+        if (isFull()) {
+            throw new NoAvailablePositionException();
+        }
+        Car car = new Car(plateNumber);
+        Ticket ticket = new Ticket(car.plateNumber(), tickets.size() + 1, this.id);
+        tickets.put(ticket, car);
+    }
+
+
     public boolean isFull() {
         return capacity == tickets.size();
     }
@@ -58,6 +68,14 @@ public class ParkingLot {
             throw new UnrecognizedTicketException();
         }
 
+        return tickets.remove(ticket);
+    }
+
+    public Car fetch(String plateNumber) {
+        Ticket ticket = tickets.keySet().stream()
+                .filter(t -> t.plateNumber().equals(plateNumber))
+                .findFirst()
+                .orElseThrow(UnrecognizedTicketException::new);
         return tickets.remove(ticket);
     }
 

@@ -108,21 +108,29 @@
 
 <hr>
 
-<span style="color:#89A8B2; font-weight:bold;">Prompt 1</span>
+<span style="color:#89A8B2; font-weight:bold;">Prompt 8</span>
 
 > then redo the tasking, tdd and implementation
 
 <hr>
 
-<span style="color:#89A8B2; font-weight:bold;">Prompt 1</span>
+<span style="color:#89A8B2; font-weight:bold;">Prompt 9</span>
 
-> 
+> Next requirement:**Car Parking and Fetching**
+>
+> ○ Enable the input of a user’s license plate number to perform car parking or fetching.
+>
+> ○ During parking, the license plate number should be correctly assigned to an available parking position and reflected in the parking lot’s status display.
+>
+> ○ During retrieval, the system should accurately release the corresponding parking slot and update the parking lot’s status. Please follow the standard software development procedures, which include:
+>
+> 1.Tasking 2.Test-Driven Development (TDD) 3.Implementation
 
 <hr>
 
-<span style="color:#89A8B2; font-weight:bold;">Prompt 1</span>
+<span style="color:#89A8B2; font-weight:bold;">Prompt 10</span>
 
-> 
+> The requirement is to park and fetch cars using the license plate number, not to fetch by ticket, while your codes seem to fetch the cars by tickets? please help update the codes
 
 <hr>
 

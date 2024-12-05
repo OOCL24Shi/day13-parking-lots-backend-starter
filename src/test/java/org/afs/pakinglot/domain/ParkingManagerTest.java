@@ -108,4 +108,115 @@ class ParkingManagerTest {
         String expectedStatus = "Plaza Park: [ABC-1234]\nCity Mall Garage: [DEF-5678]\nOffice Tower Parking: [GHI-9012]";
         assertEquals(expectedStatus, status);
     }
+
+    //requirement2
+    @Test
+    void should_park_car_in_first_available_lot_and_update_status_when_park_given_plate_number() {
+        // Given
+        String plateNumber = "ABC-1234";
+
+        // When
+        parkingManager.park("STANDARD", plateNumber);
+        String status = parkingManager.getParkingLotStatus();
+
+        // Then
+        assertTrue(status.contains("ABC-1234"));
+        assertTrue(plazaPark.getParkingLotStatus().contains("ABC-1234"));
+    }
+
+    @Test
+    void should_park_car_in_second_lot_when_first_is_full_and_update_status_when_park_given_plate_number() {
+        // Given
+        for (int i = 0; i < plazaPark.getCapacity(); i++) {
+            parkingManager.park("STANDARD", "CAR-" + i);
+        }
+        String plateNumber = "XYZ-5678";
+
+        // When
+        parkingManager.park("STANDARD", plateNumber);
+        String status = parkingManager.getParkingLotStatus();
+
+        // Then
+        assertTrue(status.contains("XYZ-5678"));
+        assertTrue(cityMallGarage.getParkingLotStatus().contains("XYZ-5678"));
+    }
+
+    @Test
+    void should_park_car_in_third_lot_when_first_two_are_full_and_update_status_given_plate_number() {
+        // Given
+        for (int i = 0; i < plazaPark.getCapacity(); i++) {
+            parkingManager.park("STANDARD", "CAR-" + i);
+        }
+        for (int i = 0; i < cityMallGarage.getCapacity(); i++) {
+            parkingManager.park("STANDARD", "CAR-" + (i + plazaPark.getCapacity()));
+        }
+        String plateNumber = "LMN-9012";
+
+        // When
+        parkingManager.park("STANDARD", plateNumber);
+        String status = parkingManager.getParkingLotStatus();
+
+        // Then
+        assertTrue(status.contains("LMN-9012"));
+        assertTrue(officeTowerParking.getParkingLotStatus().contains("LMN-9012"));
+    }
+
+    @Test
+    void should_fetch_car_from_first_lot_and_update_status_when_fetch_given_plate_number() {
+        // Given
+        String plateNumber = "ABC-1234";
+        parkingManager.park("STANDARD", plateNumber);
+
+        // When
+        Car fetchedCar = parkingManager.fetch(plateNumber);
+        String status = parkingManager.getParkingLotStatus();
+
+        // Then
+        assertEquals(plateNumber, fetchedCar.plateNumber());
+        assertFalse(status.contains("ABC-1234"));
+        assertFalse(plazaPark.getParkingLotStatus().contains("ABC-1234"));
+    }
+
+    @Test
+    void should_fetch_car_from_second_lot_and_update_status_when_fetch_given_plate_number() {
+        // Given
+        for (int i = 0; i < plazaPark.getCapacity(); i++) {
+            parkingManager.park("STANDARD", "CAR-" + i);
+        }
+        String plateNumber = "XYZ-5678";
+        parkingManager.park("STANDARD", plateNumber);
+
+        // When
+        Car fetchedCar = parkingManager.fetch(plateNumber);
+        String status = parkingManager.getParkingLotStatus();
+
+        // Then
+        assertEquals(plateNumber, fetchedCar.plateNumber());
+        assertFalse(status.contains("XYZ-5678"));
+        assertFalse(cityMallGarage.getParkingLotStatus().contains("XYZ-5678"));
+    }
+
+    @Test
+    void should_fetch_car_from_third_lot_and_update_status_when_fetch_given_plate_number() {
+        // Given
+        for (int i = 0; i < plazaPark.getCapacity(); i++) {
+            parkingManager.park("STANDARD", "CAR-" + i);
+        }
+        for (int i = 0; i < cityMallGarage.getCapacity(); i++) {
+            parkingManager.park("STANDARD", "CAR-" + (i + plazaPark.getCapacity()));
+        }
+        String plateNumber = "LMN-9012";
+        parkingManager.park("STANDARD", plateNumber);
+
+        // When
+        Car fetchedCar = parkingManager.fetch(plateNumber);
+        String status = parkingManager.getParkingLotStatus();
+
+        // Then
+        assertEquals(plateNumber, fetchedCar.plateNumber());
+        assertFalse(status.contains("LMN-9012"));
+        assertFalse(officeTowerParking.getParkingLotStatus().contains("LMN-9012"));
+    }
+
+
 }
