@@ -158,39 +158,5 @@
 
 <hr>
 
-<span style="color:#89A8B2; font-weight:bold;">Prompt 1</span>
-
-> 
-
-<hr>
-
-<span style="color:#89A8B2; font-weight:bold;">Prompt 1</span>
-
-> 
-
-<hr>
-
-<span style="color:#89A8B2; font-weight:bold;">Prompt 1</span>
-
-> 
-
-<hr>
-
-<span style="color:#89A8B2; font-weight:bold;">Prompt 1</span>
-
-> 
-
-<hr>
-
-<span style="color:#89A8B2; font-weight:bold;">Prompt 1</span>
-
-> 
-
-<hr>
-
-<span style="color:#89A8B2; font-weight:bold;">Prompt 1</span>
-
-> 
-
-<hr>
+To check the **Prompts** for **font-end codes**, please refer to **README.md** in repository **day13-parking-lots-frontend-starter**
 
