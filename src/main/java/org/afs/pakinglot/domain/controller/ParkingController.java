@@ -9,7 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/parking")
+@RequestMapping("/parking")
+@CrossOrigin(origins = "http://localhost:3000")
 public class ParkingController {
     private final ParkingService parkingService;
 
